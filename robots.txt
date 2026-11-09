@@ -1,0 +1,8 @@
+# Robots.txt for Uderia
+# https://uderia.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://uderia.com/sitemap.xml

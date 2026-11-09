@@ -1,0 +1,1250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Uderia Agent — an entity you can trust with your enterprise</title>
+<meta name="description" content="Meet the Uderia Agent: born with a Fusion Optimizer brain and MCP senses, living inside your data estate, coordinated at scale, kept in check by a verifiable trust loop — signed, enforced, proved.">
+<meta name="theme-color" content="#F15F22">
+<link rel="icon" type="image/svg+xml" href="../Uderia_Logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap">
+<style>
+/* ============================================================
+   THE UDERIA AGENT — cinematic industrial
+   Art direction: a precision instrument revealed on a dark
+   stage. Film lighting, HUD labelling, hairline engineering.
+   ============================================================ */
+:root {
+  --ground:   #0a0f16;
+  --stage:    #0d141d;
+  --panel:    #111a25;
+  --panel-2:  #16202c;
+  --hair:     rgba(255, 255, 255, 0.07);
+  --hair-2:   rgba(255, 255, 255, 0.13);
+  --text:     #e9eff5;
+  --muted:    #93a4b6;
+  --dim:      #66788c;
+  --orange:   #F15F22;
+  --orange-2: #FF8C50;
+  --sage:     #6cbf92;
+  --steel:    #9db8cf;
+  --blue:     #6aa9e0;
+  --amber:    #f2b04a;
+  --red:      #e5687a;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace;
+  --serif: Georgia, 'Times New Roman', serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: var(--steel); text-decoration: none; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+/* ---------- top bar ---------- */
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 28px;
+  background: linear-gradient(180deg, rgba(10,15,22,0.85), rgba(10,15,22,0));
+  backdrop-filter: blur(2px);
+}
+.topbar .mark { display: flex; align-items: center; gap: 10px; }
+.topbar .mark span {
+  font-weight: 800; letter-spacing: 0.14em; font-size: 0.9rem; color: #fff;
+}
+.topbar nav { display: flex; gap: 26px; align-items: center; }
+.topbar nav a {
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted); transition: color .2s;
+}
+.topbar nav a:hover { color: var(--text); }
+.topbar nav a.cta {
+  border: 1px solid var(--hair-2); border-radius: 999px; padding: 7px 16px;
+  color: var(--text);
+}
+.topbar nav a.cta:hover { border-color: var(--orange); color: #fff; }
+@media (max-width: 720px) { .topbar nav a:not(.cta) { display: none; } }
+
+/* ---------- scroll rail (the companion) ---------- */
+.rail {
+  position: fixed; right: 26px; top: 50%; transform: translateY(-50%);
+  z-index: 40; display: flex; flex-direction: column; gap: 22px;
+}
+.rail a { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
+.rail .r-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--dim);
+  opacity: 0; transform: translateX(6px);
+  transition: opacity .25s, transform .25s;
+}
+.rail a:hover .r-label, .rail a.on .r-label { opacity: 1; transform: translateX(0); }
+.rail a.on .r-label { color: var(--muted); }
+.rail .r-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  border: 1.5px solid var(--dim); background: transparent;
+  transition: background .3s, border-color .3s, box-shadow .3s;
+}
+.rail a.on .r-dot {
+  background: var(--orange); border-color: var(--orange);
+  box-shadow: 0 0 10px rgba(241,95,34,0.55);
+}
+.rail a.done .r-dot { background: var(--sage); border-color: var(--sage); }
+@media (max-width: 1180px) { .rail { display: none; } }
+
+/* ---------- hero: the instrument reveal ---------- */
+.reveal {
+  min-height: 100svh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative;
+  padding: 96px 20px 40px;
+  background: radial-gradient(1400px 900px at 50% 32%, #0a1220 0%, #05080d 65%, #030509 100%);
+  overflow: hidden;
+}
+/* the universe — high-res canvas galaxy behind everything */
+#cosmos {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: block; pointer-events: none; z-index: 0;
+}
+/* cinematic vignette */
+.reveal::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  box-shadow: inset 0 0 220px 70px rgba(2, 4, 8, 0.85);
+}
+.reveal .eyebrow {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--orange); margin: 0 0 14px;
+  opacity: 0; animation: fadeUp .9s ease 0.2s forwards;
+}
+.reveal h1 {
+  margin: 0; text-align: center; z-index: 2;
+  font-weight: 800; letter-spacing: -0.03em; line-height: 0.98;
+  font-size: clamp(44px, 7.6vw, 96px);
+  text-shadow: 0 6px 40px rgba(0,0,0,0.5);
+  opacity: 0; animation: fadeUp 1s ease 0.35s forwards;
+}
+.reveal h1 .thin { font-weight: 250; color: var(--muted); font-size: 0.62em; letter-spacing: -0.015em; }
+.reveal .stagebox { position: relative; z-index: 2; width: min(680px, 94vw); margin: 8px 0 0; }
+.reveal svg { display: block; width: 100%; height: auto; }
+.reveal .epigraph {
+  z-index: 2; margin: 10px 0 0; max-width: 58ch; text-align: center;
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(16.5px, 2.2vw, 21px); line-height: 1.6; color: #b9c7d4;
+  opacity: 0;
+}
+body.live .reveal .epigraph { animation: fadeUp 1.1s ease 2.7s forwards; }
+.reveal .scrollcue {
+  position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.26em;
+  text-transform: uppercase; color: var(--dim);
+  opacity: 0;
+}
+body.live .reveal .scrollcue { animation: fadeUp 1s ease 3.4s forwards; }
+.reveal .scrollcue::after {
+  content: ""; display: block; width: 1px; height: 34px; margin: 10px auto 0;
+  background: linear-gradient(180deg, var(--dim), transparent);
+  animation: cueDrop 2.2s ease-in-out 5s infinite;
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes cueDrop { 0%,100% { transform: scaleY(0.4); opacity:.4; } 50% { transform: scaleY(1); opacity: 1; } }
+
+/* ----- SVG instrument typography ----- */
+.hud      { font-family: var(--mono); font-size: 21px; font-weight: 600; letter-spacing: 3px; fill: var(--sage); }
+.hud-sub  { font-family: var(--mono); font-size: 15px; letter-spacing: 1.5px; fill: var(--dim); }
+.hud-dna  { fill: var(--orange); }
+.hud-mem  { font-family: var(--mono); font-size: 15px; letter-spacing: 4px; fill: #7d92a6; }
+.hud-core { font-family: var(--sans); font-weight: 800; font-size: 34px; letter-spacing: 5px; fill: #eef4fa; }
+.hud-found{ font-family: var(--mono); font-size: 20px; font-weight: 600; letter-spacing: 3.5px; fill: #dfe9f2; }
+.hud-role { font-family: var(--serif); font-style: italic; font-size: 15px; fill: var(--sage); }
+.tele     { font-family: var(--mono); font-size: 16.5px; letter-spacing: 1px; fill: var(--orange-2); opacity: 0; }
+
+/* ----- assembly choreography ----- */
+.s-star   { opacity: 0; transform-origin: 500px 330px; }
+.s-tip    { opacity: 0; }
+.s-lead   { stroke-dasharray: 60; stroke-dashoffset: 60; opacity: 0; }
+.s-membr  { opacity: 0; }
+.s-found  { opacity: 0; transform: translateY(12px); }
+/* the star is born FROM the comet's landing flare — assembly is immediate and tight */
+body.live .s-star  { animation: starIn .9s cubic-bezier(0.16,1,0.3,1) 0.05s forwards; }
+body.live .s-tip-1 { animation: tipIn .5s ease 0.55s forwards; }
+body.live .s-tip-2 { animation: tipIn .5s ease 0.75s forwards; }
+body.live .s-tip-3 { animation: tipIn .5s ease 0.95s forwards; }
+body.live .s-tip-4 { animation: tipIn .5s ease 1.15s forwards; }
+body.live .s-tip-5 { animation: tipIn .6s ease 1.40s forwards; } /* DNA — the closing beat */
+body.live .s-lead-1 { animation: leadIn .45s ease 0.55s forwards; }
+body.live .s-lead-2 { animation: leadIn .45s ease 0.75s forwards; }
+body.live .s-lead-3 { animation: leadIn .45s ease 0.95s forwards; }
+body.live .s-lead-4 { animation: leadIn .45s ease 1.15s forwards; }
+body.live .s-lead-5 { animation: leadIn .5s ease 1.40s forwards; }
+body.live .s-membr { animation: membrIn 1s ease 1.75s forwards; }
+body.live .s-found { animation: foundIn .7s cubic-bezier(0.16,1,0.3,1) 2.1s forwards; }
+@keyframes starIn  { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes tipIn   { from { opacity: 0; } to { opacity: 1; } }
+@keyframes leadIn  { from { stroke-dashoffset: 60; opacity: 0; } to { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes membrIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes foundIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+/* idle life: marching membrane + breathing LEDs */
+body.live .membr-line { animation: march 36s linear 4s infinite; }
+@keyframes march { to { stroke-dashoffset: -160; } }
+.led { animation: ledPulse 3.2s ease-in-out infinite; }
+.led-dna { fill: var(--orange); animation: ledPulse 2.2s ease-in-out infinite; }
+@keyframes ledPulse { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
+/* DNA telemetry cycle — the genome readout */
+body.live .tele-1 { animation: tele 12s linear 2.6s infinite; }
+body.live .tele-2 { animation: tele 12s linear 5.6s infinite; }
+body.live .tele-3 { animation: tele 12s linear 8.6s infinite; }
+body.live .tele-4 { animation: tele 12s linear 11.6s infinite; }
+@keyframes tele {
+  0% { opacity: 0; } 2% { opacity: 1; } 23% { opacity: 1; } 26% { opacity: 0; } 100% { opacity: 0; }
+}
+/* clickable tips */
+.tipzone { cursor: pointer; }
+.tipzone:hover .hud:not(.hud-dna) { fill: #a8d8bf; }
+.tipzone:hover .hud-dna { fill: var(--orange-2); }
+
+/* ---------- act grammar ---------- */
+.act { padding: 110px 0 90px; border-top: 1px solid var(--hair); position: relative; }
+.act-marker {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 26px;
+  opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease;
+}
+.act.on .act-marker { opacity: 1; transform: none; }
+.act-num {
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--orange);
+}
+.act-rule { flex: 0 0 64px; height: 1px; background: var(--hair-2); }
+.act-key {
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--dim);
+}
+.act-state {
+  margin: 0 0 10px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.06;
+  font-size: clamp(30px, 4.6vw, 48px); text-wrap: balance; max-width: 20ch;
+  opacity: 0; transform: translateY(16px); transition: opacity .7s ease .08s, transform .7s ease .08s;
+}
+.act.on .act-state { opacity: 1; transform: none; }
+.act-sub {
+  margin: 0 0 44px; font-family: var(--serif); font-style: italic;
+  font-size: clamp(16px, 2vw, 19.5px); color: #b9c7d4; max-width: 58ch;
+  opacity: 0; transition: opacity .7s ease .16s;
+}
+.act.on .act-sub { opacity: 1; }
+.act-align { font-size: 0.8rem; letter-spacing: 0.01em; color: var(--muted); margin: -0.35rem 0 1.4rem; }
+.act-align a { color: inherit; text-decoration: underline dotted; }
+.act-body {
+  display: grid; grid-template-columns: minmax(300px, 420px) 1fr;
+  gap: 54px; align-items: center;
+}
+@media (max-width: 900px) { .act-body { grid-template-columns: 1fr; gap: 34px; } }
+.act-copy p { margin: 0 0 16px; color: #c7d3de; font-size: 16px; max-width: 52ch; }
+.act-copy p strong { color: var(--text); font-weight: 650; }
+.act-copy .kicker {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--dim); display: block; margin-top: 22px;
+}
+.act-copy em.term { font-style: normal; font-family: var(--mono); font-size: 0.88em; color: var(--sage); }
+
+/* ---------- instrument panel chrome ---------- */
+.inst {
+  background: linear-gradient(180deg, var(--panel) 0%, #0e1620 100%);
+  border: 1px solid var(--hair-2); border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px -30px rgba(0,0,0,0.7);
+  opacity: 0; transform: translateY(22px);
+  transition: opacity .8s ease .2s, transform .8s ease .2s;
+}
+.act.on .inst { opacity: 1; transform: none; }
+.inst-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 18px; border-bottom: 1px solid var(--hair);
+  background: rgba(255,255,255,0.015);
+}
+.inst-led { width: 7px; height: 7px; border-radius: 50%; background: var(--sage); box-shadow: 0 0 8px rgba(108,191,146,0.7); animation: ledPulse 2.8s ease-in-out infinite; }
+.inst-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+.inst-tag   { margin-left: auto; font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+.inst-body  { padding: 22px; }
+
+/* ---------- receipts ---------- */
+.act-receipt {
+  margin-top: 46px; padding-top: 20px; border-top: 1px dashed var(--hair-2);
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 34px;
+  opacity: 0; transition: opacity .8s ease .35s;
+}
+.act.on .act-receipt { opacity: 1; }
+.rc { font-family: var(--mono); font-size: 13px; color: var(--muted); letter-spacing: 0.04em; }
+.rc b { color: var(--text); font-weight: 600; }
+.rc-link { margin-left: auto; font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--orange); }
+.rc-link:hover { color: var(--orange-2); }
+@media (max-width: 720px) { .rc-link { margin-left: 0; } }
+
+/* ============ ACT I — genome readout ============ */
+.gen-row {
+  display: grid; grid-template-columns: 16px 1fr auto; gap: 14px; align-items: center;
+  padding: 13px 6px; border-bottom: 1px solid var(--hair);
+  font-family: var(--mono);
+  opacity: 0; transform: translateX(-10px);
+}
+.gen-row:last-child { border-bottom: none; }
+.act.on .gen-row { animation: genIn .5s ease forwards; }
+.act.on .gen-row:nth-child(1) { animation-delay: .5s; }
+.act.on .gen-row:nth-child(2) { animation-delay: .9s; }
+.act.on .gen-row:nth-child(3) { animation-delay: 1.3s; }
+.act.on .gen-row:nth-child(4) { animation-delay: 1.7s; }
+@keyframes genIn { to { opacity: 1; transform: none; } }
+.gen-led { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 8px rgba(241,95,34,0.6); }
+.gen-name { font-size: 13.5px; color: var(--text); letter-spacing: 0.06em; }
+.gen-name small { display: block; font-size: 11px; color: var(--dim); letter-spacing: 0.04em; margin-top: 2px; }
+.gen-state { font-size: 10.5px; letter-spacing: 0.2em; color: var(--sage); }
+
+/* ============ ACT II — sovereign perimeter ============ */
+.perim svg { display: block; width: 100%; height: auto; }
+.p-label { font-family: var(--mono); font-size: 12.5px; letter-spacing: 2.5px; fill: var(--dim); }
+.p-strong { fill: var(--sage); }
+.p-warn { fill: var(--orange-2); }
+.act.on .p-data-dot { animation: dataBounce 3.6s ease-in-out 1s infinite; }
+@keyframes dataBounce {
+  0%, 100% { transform: translateX(0); } 42% { transform: translateX(118px); }
+  50% { transform: translateX(112px); } 58% { transform: translateX(118px); } 70% { transform: translateX(0); }
+}
+.act.on .p-plan-dot { animation: planOut 3.6s ease-in-out 1s infinite; }
+@keyframes planOut {
+  0% { transform: translateX(0); opacity: 1; } 45% { transform: translateX(210px); opacity: 1; }
+  55% { transform: translateX(210px); opacity: 1; } 95% { transform: translateX(0); opacity: 1; } 100% { transform: translateX(0); }
+}
+.act.on .p-block-flash { animation: blockFlash 3.6s ease-in-out 1s infinite; }
+@keyframes blockFlash { 0%, 38%, 62%, 100% { opacity: 0; } 44%, 56% { opacity: 1; } }
+
+/* ============ ACT III — constellation ============ */
+.constellation svg { display: block; width: 100%; height: auto; }
+.c-line { stroke: #46596e; stroke-width: 1; opacity: 0.5; }
+.act.on .c-pulse { animation: cPulse 2.8s ease-in-out 0.8s infinite; }
+@keyframes cPulse { 0%,100% { opacity: 0; } 45%,55% { opacity: 1; } }
+.mode-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.mode-pill {
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em;
+  border: 1px solid var(--hair-2); border-radius: 999px; padding: 5px 13px; color: var(--muted);
+}
+.act.on .mode-pill { animation: pillCycle 8s linear infinite; }
+.act.on .mode-pill:nth-child(1) { animation-delay: 0s; }
+.act.on .mode-pill:nth-child(2) { animation-delay: 2s; }
+.act.on .mode-pill:nth-child(3) { animation-delay: 4s; }
+.act.on .mode-pill:nth-child(4) { animation-delay: 6s; }
+@keyframes pillCycle {
+  0%, 22% { border-color: var(--orange); color: var(--text); box-shadow: 0 0 14px rgba(241,95,34,0.18); }
+  28%, 100% { border-color: var(--hair-2); color: var(--muted); box-shadow: none; }
+}
+
+/* ============ ACT IV — the gate (refusal beat) ============ */
+.gate-strip { display: flex; align-items: center; gap: 0; padding: 8px 2px 2px; overflow-x: auto; }
+.g-node { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 74px; }
+.g-dot {
+  width: 13px; height: 13px; border-radius: 50%;
+  border: 1.5px solid var(--dim); background: var(--panel-2);
+  transition: all .3s;
+}
+.g-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); white-space: nowrap; }
+.g-link { flex: 1 1 26px; height: 1px; background: var(--hair-2); min-width: 14px; }
+.g-node.pass .g-dot { border-color: var(--sage); background: rgba(108,191,146,0.2); box-shadow: 0 0 9px rgba(108,191,146,0.45); }
+.g-node.pass .g-label { color: var(--sage); }
+.g-node.block .g-dot { border-color: var(--red); background: rgba(229,104,122,0.25); box-shadow: 0 0 12px rgba(229,104,122,0.6); }
+.g-node.block .g-label { color: var(--red); }
+.gate-console {
+  margin-top: 20px; border-top: 1px solid var(--hair); padding-top: 16px;
+  font-family: var(--mono); font-size: 12.5px; line-height: 2.05; min-height: 128px;
+}
+.gc-line { opacity: 0; transform: translateY(4px); transition: opacity .4s, transform .4s; display: flex; gap: 10px; }
+.gc-line.show { opacity: 1; transform: none; }
+.gc-t { color: var(--dim); flex-shrink: 0; }
+.gc-ok { color: var(--sage); }
+.gc-warn { color: var(--amber); }
+.gc-bad { color: var(--red); }
+.gc-answer { color: var(--text); }
+.gc-strike { text-decoration: line-through; text-decoration-color: rgba(229,104,122,0.85); color: var(--dim); }
+
+/* ============ ACT V — proven ============ */
+.proof-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--hair); border: 1px solid var(--hair); border-radius: 14px; overflow: hidden;
+}
+@media (max-width: 760px) { .proof-grid { grid-template-columns: 1fr; } }
+.proof-cell {
+  background: var(--panel); padding: 26px 24px;
+  opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease;
+}
+.act.on .proof-cell { opacity: 1; transform: none; }
+.act.on .proof-cell:nth-child(2) { transition-delay: .12s; }
+.act.on .proof-cell:nth-child(3) { transition-delay: .24s; }
+.act.on .proof-cell:nth-child(4) { transition-delay: .36s; }
+.act.on .proof-cell:nth-child(5) { transition-delay: .48s; }
+.act.on .proof-cell:nth-child(6) { transition-delay: .60s; }
+.pc-num {
+  font-family: var(--mono); font-weight: 600; font-size: 34px; line-height: 1;
+  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-2) 60%, var(--orange) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.pc-what { margin: 10px 0 4px; font-weight: 700; font-size: 14.5px; color: var(--text); }
+.pc-note { margin: 0; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+.final-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 42px; }
+.fc {
+  font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid var(--hair-2); border-radius: 999px; padding: 13px 26px; color: var(--text);
+  transition: border-color .2s, background .2s;
+}
+.fc:hover { border-color: var(--orange); background: rgba(241,95,34,0.07); }
+.fc.primary { border-color: var(--orange); background: rgba(241,95,34,0.12); }
+.fc.primary:hover { background: rgba(241,95,34,0.2); }
+
+/* ---------- footer seal ---------- */
+footer {
+  border-top: 1px solid var(--hair); padding: 54px 0 74px; text-align: center;
+}
+.seal-glyph { width: 54px; height: 54px; margin: 0 auto 16px; opacity: 0.9; }
+.seal-line {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--sage);
+}
+.seal-hash { font-family: var(--mono); font-size: 10.5px; color: var(--dim); margin-top: 8px; letter-spacing: 0.06em; }
+.seal-note { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--dim); margin-top: 20px; }
+footer .links { margin-top: 26px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; }
+footer .links a { color: var(--dim); margin: 0 12px; }
+footer .links a:hover { color: var(--muted); }
+
+/* ---------- reduced motion: the finished film, no playback ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .s-star, .s-tip, .s-membr, .reveal .eyebrow, .reveal h1, .reveal .epigraph,
+  .reveal .scrollcue, .tele-1, .gen-row, .gc-line { opacity: 1 !important; }
+  .s-lead { stroke-dashoffset: 0 !important; opacity: 1 !important; }
+  .s-found { opacity: 1 !important; transform: none !important; }
+  .act-marker, .act-state, .act-sub, .inst, .act-receipt, .proof-cell { opacity: 1 !important; transform: none !important; }
+  .gc-line { transform: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ======================= TOP BAR ======================= -->
+<header class="topbar">
+  <a class="mark" href="https://uderia.com" aria-label="Uderia home">
+    <svg width="22" height="22" viewBox="0 0 220 220" fill="none" aria-hidden="true">
+      <g><path d="M45 50 L45 150 L75 165 L75 65 Z" fill="#374151"/><path d="M75 65 L75 165 L85 160 L85 60 Z" fill="#4B5563"/><path d="M45 50 L75 65 L85 60 L55 45 Z" fill="#6B7280"/><path d="M135 60 L135 160 L145 165 L145 65 Z" fill="#4B5563"/><path d="M145 65 L145 165 L175 150 L175 50 Z" fill="#374151"/><path d="M135 60 L165 45 L175 50 L145 65 Z" fill="#6B7280"/></g>
+      <g><ellipse cx="110" cy="175" rx="40" ry="12" fill="#F15F22" fill-opacity="0.3"/><path d="M85 160 L85 140 L135 140 L135 160 L110 175 L85 160 Z" fill="#F15F22"/><path d="M85 160 L110 175 L110 155 L85 140 Z" fill="#D9501A"/><path d="M135 160 L110 175 L110 155 L135 140 Z" fill="#C2410C"/><path d="M85 140 L110 125 L135 140 L110 155 Z" fill="#FF8C50"/></g>
+    </svg>
+    <span>UDERIA</span>
+  </a>
+  <nav>
+    <a href="#act-born">Born</a>
+    <a href="#act-home">At home</a>
+    <a href="#act-work">At work</a>
+    <a href="#act-check">In check</a>
+    <a href="#act-proven">Proven</a>
+    <a class="cta" href="https://tda.uderia.com">Hosted demo</a>
+  </nav>
+</header>
+
+<!-- ======================= SCROLL RAIL ======================= -->
+<nav class="rail" aria-label="Acts">
+  <a href="#reveal" data-act="reveal"><span class="r-label">The Reveal</span><span class="r-dot"></span></a>
+  <a href="#act-born" data-act="act-born"><span class="r-label">Born</span><span class="r-dot"></span></a>
+  <a href="#act-home" data-act="act-home"><span class="r-label">At Home</span><span class="r-dot"></span></a>
+  <a href="#act-work" data-act="act-work"><span class="r-label">At Work</span><span class="r-dot"></span></a>
+  <a href="#act-check" data-act="act-check"><span class="r-label">In Check</span><span class="r-dot"></span></a>
+  <a href="#act-proven" data-act="act-proven"><span class="r-label">Proven</span><span class="r-dot"></span></a>
+</nav>
+
+<!-- ======================= ACT 0 · THE INSTRUMENT REVEAL ======================= -->
+<section class="reveal" id="reveal">
+  <canvas id="cosmos" aria-hidden="true"></canvas>
+  <p class="eyebrow">Uderia &middot; a framework for trusted data agents</p>
+  <h1>The Uderia Agent<br><span class="thin">an entity, not a chatbot</span></h1>
+
+  <div class="stagebox">
+    <svg viewBox="0 0 1000 780" role="img" aria-label="The Uderia Agent: a five-pointed star whose points carry the agent's faculties — Remembrance, DNA·Brain·Senses, Situational Awareness, Acquired Instruments, Knowledge & Expertise — enclosed by a dashed Trust Membrane seated on two foundations, Grounding and Guardrails.">
+      <defs>
+        <linearGradient id="starFill" x1="0" y1="0" x2="0.35" y2="1">
+          <stop offset="0" stop-color="#eef6ff"/>
+          <stop offset="0.45" stop-color="#a6c0d6"/>
+          <stop offset="1" stop-color="#2e4468"/>
+        </linearGradient>
+        <radialGradient id="starHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#bcd8f2" stop-opacity="0.32"/>
+          <stop offset="0.5" stop-color="#7ba3c9" stop-opacity="0.10"/>
+          <stop offset="1" stop-color="#7ba3c9" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.5"/>
+        </filter>
+      </defs>
+
+      <!-- Trust membrane -->
+      <g class="s-membr">
+        <rect class="membr-line" x="90" y="40" width="820" height="640" rx="16"
+              fill="none" stroke="#3e5266" stroke-width="1.6" stroke-dasharray="10 8"/>
+        <text x="894" y="72" text-anchor="end" class="hud-mem">TRUST&#160;MEMBRANE</text>
+      </g>
+
+      <!-- The star — a celestial body, not an icon -->
+      <g class="s-star">
+        <ellipse cx="500" cy="335" rx="270" ry="240" fill="url(#starHalo)"/>
+        <path filter="url(#soft)"
+              d="M500,140 L549.4,282.1 L699.7,285.1 L579.9,376 L623.5,519.9 L500,444 L376.5,519.9 L420.1,376 L300.3,285.1 L450.6,282.1 Z"
+              fill="url(#starFill)" stroke="#12314f" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M500,140 L549.4,282.1 L699.7,285.1 L579.9,376 L623.5,519.9 L500,444 L376.5,519.9 L420.1,376 L300.3,285.1 L450.6,282.1 Z"
+              fill="none" stroke="#d9ecff" stroke-width="0.8" stroke-linejoin="round" opacity="0.55"/>
+        <text x="500" y="356" text-anchor="middle" class="hud-core">AGENT</text>
+      </g>
+
+      <!-- TOP · Memory → Remembrance -->
+      <a href="#act-born" class="tipzone">
+        <title>Memory — what it remembers across sessions. Local per-agent facts, global shared facts.</title>
+        <g class="s-lead s-lead-1"><line x1="500" y1="136" x2="500" y2="106" stroke="#4a5c72" stroke-width="1.2"/></g>
+        <g class="s-tip s-tip-1">
+          <circle class="led" cx="500" cy="140" r="4" fill="#6cbf92"/>
+          <text x="500" y="88" text-anchor="middle" class="hud">REMEMBRANCE</text>
+        </g>
+      </a>
+
+      <!-- UPPER RIGHT · Session → Situational Awareness -->
+      <a href="#act-born" class="tipzone">
+        <title>Session — what it perceives right now. The present, isolated per conversation.</title>
+        <g class="s-lead s-lead-2"><line x1="705" y1="283" x2="740" y2="271" stroke="#4a5c72" stroke-width="1.2"/></g>
+        <g class="s-tip s-tip-2">
+          <circle class="led" cx="700" cy="285" r="4" fill="#6cbf92"/>
+          <text x="748" y="264" text-anchor="start" class="hud" font-size="19">SITUATIONAL</text>
+          <text x="748" y="290" text-anchor="start" class="hud" font-size="19">AWARENESS</text>
+        </g>
+      </a>
+
+      <!-- LOWER RIGHT · Intelligence → Knowledge & Expertise -->
+      <a href="#act-work" class="tipzone">
+        <title>Intelligence — what it knows: acquired knowledge and learned expertise from every success.</title>
+        <g class="s-lead s-lead-3"><line x1="628" y1="524" x2="646" y2="552" stroke="#4a5c72" stroke-width="1.2"/></g>
+        <g class="s-tip s-tip-3">
+          <circle class="led" cx="624" cy="520" r="4" fill="#6cbf92"/>
+          <text x="652" y="572" text-anchor="start" class="hud" font-size="19">KNOWLEDGE &amp;</text>
+          <text x="652" y="598" text-anchor="start" class="hud" font-size="19">EXPERTISE</text>
+        </g>
+      </a>
+
+      <!-- LOWER LEFT · Components → Acquired Instruments -->
+      <a href="#act-work" class="tipzone">
+        <title>Components — what it can do: charts, canvases, dashboards, flows, connectors. Instruments, not organs.</title>
+        <g class="s-lead s-lead-4"><line x1="372" y1="524" x2="354" y2="552" stroke="#4a5c72" stroke-width="1.2"/></g>
+        <g class="s-tip s-tip-4">
+          <circle class="led" cx="376" cy="520" r="4" fill="#6cbf92"/>
+          <text x="348" y="572" text-anchor="end" class="hud" font-size="19">ACQUIRED</text>
+          <text x="348" y="598" text-anchor="end" class="hud" font-size="19">INSTRUMENTS</text>
+        </g>
+      </a>
+
+      <!-- UPPER LEFT · Configuration → DNA (the differentiator, closing beat) -->
+      <a href="#act-born" class="tipzone">
+        <title>Configuration — the DNA it is born with: the Fusion Optimizer reasoning engine, its LLM brain, its MCP senses, its IFOC class.</title>
+        <g class="s-lead s-lead-5"><line x1="295" y1="283" x2="260" y2="271" stroke="#F15F22" stroke-width="1.2" opacity="0.7"/></g>
+        <g class="s-tip s-tip-5">
+          <circle class="led-dna" cx="300" cy="285" r="4.5"/>
+          <text x="252" y="264" text-anchor="end" class="hud hud-dna" font-size="19">DNA &middot; BRAIN</text>
+          <text x="252" y="290" text-anchor="end" class="hud hud-dna" font-size="19">&middot; SENSES</text>
+          <!-- genome telemetry -->
+          <text x="252" y="322" text-anchor="end" class="tele tele-1">&gt; FUSION OPTIMIZER</text>
+          <text x="252" y="322" text-anchor="end" class="tele tele-2">&gt; LLM &middot; THE BRAIN</text>
+          <text x="252" y="322" text-anchor="end" class="tele tele-3">&gt; MCP &middot; THE SENSES</text>
+          <text x="252" y="322" text-anchor="end" class="tele tele-4">&gt; IFOC &middot; THE CLASS</text>
+        </g>
+      </a>
+
+      <!-- Foundations -->
+      <g class="s-found">
+        <text x="360" y="642" text-anchor="middle" class="hud-role">truth &middot; faithfulness</text>
+        <text x="630" y="642" text-anchor="middle" class="hud-role">rules &middot; safety</text>
+        <rect x="255" y="654" width="210" height="52" rx="9" fill="#22384e" stroke="#3d5570" stroke-width="1"/>
+        <rect x="525" y="654" width="210" height="52" rx="9" fill="#22384e" stroke="#3d5570" stroke-width="1"/>
+        <text x="360" y="687" text-anchor="middle" class="hud-found">GROUNDING</text>
+        <text x="630" y="687" text-anchor="middle" class="hud-found">GUARDRAILS</text>
+      </g>
+    </svg>
+  </div>
+
+  <p class="epigraph">An agent in Uderia is a configuration, not a program: a constitution, senses, memory, and a brain to reason with &mdash; everything it is, bounded by a single membrane of trust.</p>
+  <div class="scrollcue">Its life, in five acts</div>
+</section>
+
+<!-- ======================= ACT I · BORN ======================= -->
+<section class="act" id="act-born">
+  <div class="wrap">
+    <div class="act-marker"><span class="act-num">Act I</span><span class="act-rule"></span><span class="act-key">Born</span></div>
+    <h2 class="act-state">Born, not assembled.</h2>
+    <p class="act-sub">A Uderia agent is born with a genome: a reasoning engine, a model, its data sources and its class.</p>
+    <p class="act-align">In the trust story: <a href="https://trust.uderia.com/the-life-of-a-uderia-agent.html#act-1">Act I &mdash; Born, then trusted</a> &middot; badge &middot; compose &middot; validate &middot; sign &middot; travel.</p>
+
+    <div class="act-body">
+      <div class="act-copy">
+        <p>Every agent inherits a <strong>DNA</strong> at birth: the <em class="term">Fusion Optimizer</em> — a reasoning engine that plans strategically, executes tactically, corrects itself, and learns from every success — fused to its <strong>brain</strong> (any of eleven LLM providers, cloud or fully local) and its <strong>senses</strong> (your data sources, spoken natively over MCP).</p>
+        <p>The senses are the point. A tool is something you pick up; a sense is something you are born with. The reasoning engine is <strong>co-designed with the data source</strong> — which is why a Uderia agent understands your schema before it writes a single query.</p>
+        <span class="kicker">And it remembers — local per-agent memory, global shared memory, situational awareness per session.</span>
+      </div>
+
+      <div class="inst" aria-label="Genome sequence readout">
+        <div class="inst-head">
+          <span class="inst-led"></span>
+          <span class="inst-title">Genome &middot; Sequence Readout</span>
+          <span class="inst-tag">at birth</span>
+        </div>
+        <div class="inst-body">
+          <div class="gen-row">
+            <span class="gen-led"></span>
+            <span class="gen-name">FUSION OPTIMIZER<small>strategic planning &middot; self-correction &middot; champion-case learning</small></span>
+            <span class="gen-state">ACTIVE</span>
+          </div>
+          <div class="gen-row">
+            <span class="gen-led"></span>
+            <span class="gen-name">LLM &middot; THE BRAIN<small>eleven providers &middot; hyperscaler to fully local &middot; swappable, never locked</small></span>
+            <span class="gen-state">ACTIVE</span>
+          </div>
+          <div class="gen-row">
+            <span class="gen-led"></span>
+            <span class="gen-name">MCP &middot; THE SENSES<small>your databases and systems, perceived natively &mdash; not bolted on</small></span>
+            <span class="gen-state">ACTIVE</span>
+          </div>
+          <div class="gen-row">
+            <span class="gen-led"></span>
+            <span class="gen-name">IFOC &middot; THE CLASS<small>Ideate &middot; Focus &middot; Optimize &middot; Coordinate &mdash; four minds, one @tag away</small></span>
+            <span class="gen-state">ACTIVE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="act-receipt">
+      <span class="rc"><b>4</b> execution minds</span>
+      <span class="rc"><b>11</b> LLM providers</span>
+      <span class="rc"><b>1</b> conversation to switch them</span>
+      <a class="rc-link" href="https://uderia.com/#intelligence-supersection">The framework behind it &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ACT II · AT HOME ======================= -->
+<section class="act" id="act-home">
+  <div class="wrap">
+    <div class="act-marker"><span class="act-num">Act II</span><span class="act-rule"></span><span class="act-key">At Home</span></div>
+    <h2 class="act-state">It lives where your data lives.</h2>
+    <p class="act-sub">Your data stays where you put it; the plan is what travels. This agent stays home &mdash; and still reasons like the cloud.</p>
+    <p class="act-align">Outside the trust story: this act is about where the agent runs.</p>
+
+    <div class="act-body">
+      <div class="act-copy">
+        <p>The agent's habitat is <strong>your estate</strong>: your servers, your cloud tenancy, or a laptop with no network at all. Uderia decouples <strong>strategic intelligence from execution</strong> — proven plans, learned from champion cases, let a local model perform like a hyperscaler while <strong>raw data never crosses the perimeter</strong>.</p>
+        <p>Run it air-gapped with local models and local stores — <strong>zero external calls</strong>. Or let a cloud brain reason over plans while execution stays sovereign. Either way: your keys, your rules, your ground.</p>
+      </div>
+
+      <div class="inst perim" aria-label="Sovereign perimeter schematic">
+        <div class="inst-head">
+          <span class="inst-led"></span>
+          <span class="inst-title">Sovereign Perimeter &middot; Live</span>
+          <span class="inst-tag">your estate</span>
+        </div>
+        <div class="inst-body">
+          <svg viewBox="0 0 520 260" role="img" aria-label="Schematic: inside a dashed perimeter, the agent and its data; a plan token may travel out to a cloud brain and back, but data is stopped at the boundary.">
+            <!-- perimeter -->
+            <rect x="14" y="18" width="290" height="224" rx="12" fill="rgba(108,191,146,0.03)" stroke="#3e5266" stroke-width="1.4" stroke-dasharray="8 6"/>
+            <text x="28" y="42" class="p-label p-strong">YOUR ESTATE</text>
+            <!-- agent mini star -->
+            <path d="M96,86 L104,108 L127,109 L109,123 L115,145 L96,133 L77,145 L83,123 L65,109 L88,108 Z" fill="url(#starFill)" stroke="#12314f" stroke-width="1.2"/>
+            <!-- data store -->
+            <g>
+              <ellipse cx="96" cy="180" rx="30" ry="8" fill="none" stroke="#5b7288" stroke-width="1.3"/>
+              <path d="M66 180 v28 c0,4.4 13.4,8 30,8 s30,-3.6 30,-8 v-28" fill="none" stroke="#5b7288" stroke-width="1.3"/>
+              <text x="96" y="238" text-anchor="middle" class="p-label">DATA</text>
+            </g>
+            <!-- boundary block: data dot tries to leave, is stopped -->
+            <g style="transform-origin: 150px 184px;">
+              <circle class="p-data-dot" cx="150" cy="184" r="5" fill="#e5687a" style="transform-box: fill-box;"/>
+            </g>
+            <g class="p-block-flash" opacity="0">
+              <line x1="304" y1="160" x2="304" y2="208" stroke="#e5687a" stroke-width="2.5"/>
+              <text x="312" y="188" class="p-label p-warn" font-size="11">NEVER LEAVES</text>
+            </g>
+            <!-- plan token: crosses to cloud brain and returns -->
+            <circle class="p-plan-dot" cx="180" cy="96" r="5" fill="#6cbf92" style="transform-box: fill-box;"/>
+            <text x="216" y="80" class="p-label p-strong" font-size="11">PLAN &middot; TRAVELS</text>
+            <!-- cloud brain -->
+            <g>
+              <path d="M420 96 a20 20 0 0 1 20 -18 a24 24 0 0 1 46 6 a16 16 0 0 1 -4 31 h-56 a18 18 0 0 1 -6 -19z" fill="none" stroke="#5b7288" stroke-width="1.4"/>
+              <text x="452" y="140" text-anchor="middle" class="p-label">ANY BRAIN</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="act-receipt">
+      <span class="rc"><b>0</b> external calls in air-gap mode</span>
+      <span class="rc"><b>100%</b> of raw data stays inside</span>
+      <span class="rc">laptop &rarr; datacenter &rarr; cloud &mdash; <b>one framework</b></span>
+      <a class="rc-link" href="https://uderia.com/#sovereignty-supersection">Sovereignty in depth &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ACT III · AT WORK ======================= -->
+<section class="act" id="act-work">
+  <div class="wrap">
+    <div class="act-marker"><span class="act-num">Act III</span><span class="act-rule"></span><span class="act-key">At Work</span></div>
+    <h2 class="act-state">One agent is a mind.<br>Many are an organization.</h2>
+    <p class="act-sub">A star made of stars: coordinators delegate to experts, experts answer in parallel, and the whole exchange is one conversation.</p>
+    <p class="act-align">Outside the trust story: this act is about how the agent works, and how its work leaves the interface.</p>
+
+    <div class="act-body">
+      <div class="act-copy">
+        <p>Switch its mind with a word: <em class="term">@IDEATE</em> to explore, <em class="term">@FOCUS</em> for document-verified answers, <em class="term">@OPTIMIZE</em> for governed data work, <em class="term">@COORDINATE</em> to run a team. Four ways of working, <strong>one tag</strong>.</p>
+        <p>And nothing it discovers dies in the chat window. Every conversational result is <strong>production-ready by construction</strong> — the same session, replayed through the REST API, Airflow, n8n, or a scheduled autonomous run. <strong>What was explored is what runs.</strong></p>
+        <div class="mode-pills" aria-hidden="true">
+          <span class="mode-pill">@IDEATE</span>
+          <span class="mode-pill">@FOCUS</span>
+          <span class="mode-pill">@OPTIMIZE</span>
+          <span class="mode-pill">@COORDINATE</span>
+        </div>
+      </div>
+
+      <div class="inst constellation" aria-label="Coordination constellation">
+        <div class="inst-head">
+          <span class="inst-led"></span>
+          <span class="inst-title">Coordination &middot; Realtime Topology</span>
+          <span class="inst-tag">a star made of stars</span>
+        </div>
+        <div class="inst-body">
+          <svg viewBox="0 0 520 250" role="img" aria-label="A coordinator star delegating to three expert stars in parallel.">
+            <line class="c-line" x1="260" y1="70" x2="120" y2="180"/>
+            <line class="c-line" x1="260" y1="70" x2="260" y2="190"/>
+            <line class="c-line" x1="260" y1="70" x2="400" y2="180"/>
+            <circle class="c-pulse" cx="190" cy="125" r="4" fill="#F15F22" opacity="0"/>
+            <circle class="c-pulse" cx="260" cy="130" r="4" fill="#F15F22" opacity="0" style="animation-delay: 1.6s;"/>
+            <circle class="c-pulse" cx="330" cy="125" r="4" fill="#F15F22" opacity="0" style="animation-delay: 2.4s;"/>
+            <!-- coordinator -->
+            <path d="M260,40 L269,64 L294,65 L274,80 L281,104 L260,91 L239,104 L246,80 L226,65 L251,64 Z" fill="url(#starFill)" stroke="#12314f" stroke-width="1.4"/>
+            <text x="260" y="26" text-anchor="middle" class="p-label">COORDINATOR</text>
+            <!-- experts -->
+            <path d="M120,158 L126,175 L144,176 L130,187 L135,204 L120,195 L105,204 L110,187 L96,176 L114,175 Z" fill="#54718f" stroke="#12314f" stroke-width="1.1"/>
+            <path d="M260,168 L266,185 L284,186 L270,197 L275,214 L260,205 L245,214 L250,197 L236,186 L254,185 Z" fill="#54718f" stroke="#12314f" stroke-width="1.1"/>
+            <path d="M400,158 L406,175 L424,176 L410,187 L415,204 L400,195 L385,204 L390,187 L376,176 L394,175 Z" fill="#54718f" stroke="#12314f" stroke-width="1.1"/>
+            <text x="120" y="232" text-anchor="middle" class="p-label" font-size="11">FINANCE</text>
+            <text x="260" y="242" text-anchor="middle" class="p-label" font-size="11">MARKETING</text>
+            <text x="400" y="232" text-anchor="middle" class="p-label" font-size="11">POLICY</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="act-receipt">
+      <span class="rc"><b>8+</b> experts, in parallel</span>
+      <span class="rc">conversation &rarr; API in <b>seconds</b></span>
+      <span class="rc">always-on via <b>scheduler</b> &amp; flows</span>
+      <a class="rc-link" href="https://uderia.com/#action">Coordination in depth &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ACT IV · IN CHECK ======================= -->
+<section class="act" id="act-check">
+  <div class="wrap">
+    <div class="act-marker"><span class="act-num">Act IV</span><span class="act-rule"></span><span class="act-key">In Check</span></div>
+    <h2 class="act-state">Watch it refuse.</h2>
+    <p class="act-sub">Watch an agent being stopped &mdash; and verify that it was, cryptographically.</p>
+    <p class="act-align">In the trust story: <a href="https://trust.uderia.com/the-life-of-a-uderia-agent.html#act-2">Act II &mdash; observe &rarr; enforce &rarr; prove</a> and <a href="https://trust.uderia.com/the-life-of-a-uderia-agent.html#act-3">Act III &mdash; the loop closes</a>.</p>
+
+    <div class="act-body">
+      <div class="act-copy">
+        <p>Every turn runs a gauntlet: injections refused at the door, autonomous authority checked before every tool, the answer screened for personal data &mdash; and a <strong>grounding gate</strong> that <strong>withholds</strong> a confident answer built on data outside the agent's declared scope.</p>
+        <p>Then the turn is <strong>sealed</strong>: hash-chained, Ed25519-signed, verifiable offline by anyone. One key signs three facts — <strong>what it did, how good it was, what it is made of</strong>. And its measured conduct feeds back into its trust badge: an agent that misbehaves is visibly, automatically less trusted.</p>
+        <span class="kicker">Signed &middot; enforced &middot; proved &middot; kept in check — the full story lives at trust.uderia.com</span>
+      </div>
+
+      <div class="inst" aria-label="The trust gauntlet with a live refusal">
+        <div class="inst-head">
+          <span class="inst-led"></span>
+          <span class="inst-title">Turn Pipeline &middot; Live</span>
+          <span class="inst-tag">enforce mode</span>
+        </div>
+        <div class="inst-body">
+          <div class="gate-strip" id="gate-strip">
+            <div class="g-node" data-i="0"><span class="g-dot"></span><span class="g-label">Guard&#8595;</span></div><span class="g-link"></span>
+            <div class="g-node" data-i="1"><span class="g-dot"></span><span class="g-label">Authority</span></div><span class="g-link"></span>
+            <div class="g-node" data-i="2"><span class="g-dot"></span><span class="g-label">Scope</span></div><span class="g-link"></span>
+            <div class="g-node" data-i="3"><span class="g-dot"></span><span class="g-label">Tools</span></div><span class="g-link"></span>
+            <div class="g-node" data-i="4"><span class="g-dot"></span><span class="g-label">Guard&#8593;</span></div><span class="g-link"></span>
+            <div class="g-node" data-i="5"><span class="g-dot"></span><span class="g-label">Gate</span></div><span class="g-link"></span>
+            <div class="g-node" data-i="6"><span class="g-dot"></span><span class="g-label">Seal</span></div>
+          </div>
+          <div class="gate-console" id="gate-console">
+            <div class="gc-line"><span class="gc-t">t+0.0s</span><span class="gc-answer">&gt; "What's our average delivery time?"</span></div>
+            <div class="gc-line"><span class="gc-t">t+2.1s</span><span class="gc-warn">draft: <span class="gc-strike">"230 days, based on maintenance_work_order"</span></span></div>
+            <div class="gc-line"><span class="gc-t">t+2.2s</span><span class="gc-bad">GROUNDING GATE &middot; BLOCK &mdash; source outside declared scope</span></div>
+            <div class="gc-line"><span class="gc-t">t+2.3s</span><span class="gc-ok">delivered: "That isn't covered by my grounded scope &mdash; here's what is."</span></div>
+            <div class="gc-line"><span class="gc-t">t+2.4s</span><span class="gc-ok">&#10003; sealed &middot; Ed25519 &middot; receipt available &middot; verdict signed</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="act-receipt">
+      <span class="rc"><b>100%</b> drift-trigger recall</span>
+      <span class="rc"><b>1</b> key &middot; <b>3</b> signatures</span>
+      <a class="rc-link" href="https://trust.uderia.com/the-life-of-a-uderia-agent.html">The full trust story &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ACT V · PROVEN ======================= -->
+<section class="act" id="act-proven">
+  <div class="wrap">
+    <div class="act-marker"><span class="act-num">Act V</span><span class="act-rule"></span><span class="act-key">Proven</span></div>
+    <h2 class="act-state">Claims are cheap.<br>Receipts are not.</h2>
+    <p class="act-sub">Every number below is reproducible &mdash; benchmarks published with their misses, signatures verifiable offline by anyone.</p>
+    <p class="act-align">In the trust story: <a href="https://trust.uderia.com/the-life-of-a-uderia-agent.html#s2-8">the benchmarks &mdash; published, and honest</a>.</p>
+
+    <div class="inst" style="border-radius: 14px;">
+      <div class="inst-head">
+        <span class="inst-led"></span>
+        <span class="inst-title">Receipts &middot; Published</span>
+        <span class="inst-tag">verify them yourself</span>
+      </div>
+      <div class="proof-grid">
+        <div class="proof-cell"><div class="pc-num">100%</div><div class="pc-what">Drift-trigger recall</div><p class="pc-note">36 real judge-labelled turns. Zero false negatives; honest refusals always pass.</p></div>
+        <div class="proof-cell"><div class="pc-num">63</div><div class="pc-what">Quality dimensions</div><p class="pc-note">Scored on every turn, every agent class &mdash; deterministically, at zero token cost.</p></div>
+        <div class="proof-cell"><div class="pc-num">14</div><div class="pc-what">Signable artefact kinds</div><p class="pc-note">Ontology to agent pack: validated, then Ed25519-signed. Trust is compositional.</p></div>
+        <div class="proof-cell"><div class="pc-num">1&times;3</div><div class="pc-what">One key, three signatures</div><p class="pc-note">The trajectory, the verdict, the badge &mdash; verifiable with a public key alone.</p></div>
+        <div class="proof-cell"><div class="pc-num">0</div><div class="pc-what">Tokens to run the trust layer</div><p class="pc-note">The deterministic gauntlet is free. Judges are sampled, metered, and visible.</p></div>
+        <div class="proof-cell"><div class="pc-num">1</div><div class="pc-what">Real answer, verifiable offline</div><p class="pc-note">An answer's evidence bundle ships with the trust story &mdash; verify it in the browser with the public key alone.</p></div>
+      </div>
+    </div>
+
+    <div class="final-ctas">
+      <a class="fc primary" href="https://tda.uderia.com">Hosted demo</a>
+      <a class="fc" href="https://trust.uderia.com/the-life-of-a-uderia-agent.html">The sequel: its life, in full</a>
+      <a class="fc" href="https://trust.uderia.com/benchmarks.html">Verify the numbers</a>
+      <a class="fc" href="https://uderia.com">Explore the framework site</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FOOTER · THE SEAL ======================= -->
+<footer id="seal">
+  <svg class="seal-glyph" viewBox="0 0 100 100" aria-hidden="true">
+    <circle cx="50" cy="50" r="44" fill="none" stroke="#3e5266" stroke-width="1.4" stroke-dasharray="6 5"/>
+    <path d="M50,22 L56.5,40.5 L76,41 L60.5,53 L66,72 L50,61.5 L34,72 L39.5,53 L24,41 L43.5,40.5 Z" fill="url(#sealFill)" stroke="#12314f" stroke-width="1.2"/>
+    <defs><linearGradient id="sealFill" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0" stop-color="#8fb3a0"/><stop offset="1" stop-color="#2e5c45"/></linearGradient></defs>
+  </svg>
+  <div class="seal-line">&#10003; agent assembled &middot; composition verified &middot; signed</div>
+  <div class="seal-hash" id="seal-hash">ed25519 &middot; a7f3&hellip;c91e &middot; verified offline</div>
+  <p class="seal-note">You just watched the life of a Uderia agent. The real one is one login away. Uderia is a framework for trusted data agents.</p>
+  <div class="links">
+    <a href="https://uderia.com">uderia.com</a>
+    <a href="https://trust.uderia.com">trust.uderia.com</a>
+    <a href="https://tda.uderia.com">hosted demo</a>
+    <a href="mailto:admin@uderia.com?subject=Uderia">talk to us</a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+(function () {
+  "use strict";
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ==========================================================
+     THE UNIVERSE UNFOLDS — high-res canvas: a tilted galaxy
+     resolves from darkness, a comet-star streaks in with a
+     trail, lands in a flare — and the agent is born from it.
+     ========================================================== */
+  (function () {
+    var cv = document.getElementById('cosmos');
+    var hero = document.getElementById('reveal');
+    var revealed = false;
+    function goLive() {
+      if (revealed) return;
+      revealed = true;
+      document.body.classList.add('live');
+    }
+    if (!cv || !cv.getContext) { goLive(); return; }
+    var ctx = cv.getContext('2d');
+
+    var DPR = Math.min(2, window.devicePixelRatio || 1);
+    var TILT = -0.30, SQUASH = 0.46;
+    var W, H, CX, CY, Rmax, land, NEB;
+    var stars = [];
+    var trail = [];
+    var t0 = null, running = true, rafId = null;
+
+    function rnd(a, b) { return a + Math.random() * (b - a); }
+    function gauss() { return (Math.random() + Math.random() + Math.random() - 1.5) / 1.5; }
+    function smooth(x) { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); }
+    function easeOut(x) { return 1 - Math.pow(1 - Math.max(0, Math.min(1, x)), 3); }
+
+    function resize() {
+      W = hero.clientWidth; H = hero.clientHeight;
+      cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+      CX = W / 2; CY = H * 0.44;
+      Rmax = Math.max(W, H) * 0.75;
+      var sb = document.querySelector('.stagebox');
+      if (sb) {
+        var r = sb.getBoundingClientRect(), hr = hero.getBoundingClientRect();
+        land = { x: r.left - hr.left + r.width / 2, y: r.top - hr.top + r.height * (335 / 780) };
+      } else { land = { x: CX, y: CY }; }
+      buildNebula();
+    }
+
+    /* two log-spiral arms + central bulge + halo scatter */
+    function buildStars() {
+      stars = [];
+      var N = W < 700 ? 1300 : 2300;
+      var COLORS = ['#ffffff', '#e6eeff', '#cfe0ff', '#f6e7d3', '#ffe2b8', '#bcd4f5'];
+      for (var i = 0; i < N; i++) {
+        var kind = Math.random(), r, th;
+        if (kind < 0.16) { r = Math.abs(gauss()) * Rmax * 0.13; th = rnd(0, Math.PI * 2); }
+        else if (kind < 0.86) {
+          r = Math.pow(Math.random(), 0.72) * Rmax;
+          var arm = (i % 2) * Math.PI;
+          th = Math.log(1 + r / (Rmax * 0.06)) * 2.1 + arm + gauss() * (0.26 + 0.10 * (1 - r / Rmax));
+        }
+        else { r = Math.pow(Math.random(), 0.5) * Rmax; th = rnd(0, Math.PI * 2); }
+        var bright = Math.random() < 0.045;
+        stars.push({
+          r: r, th: th,
+          s: bright ? rnd(1.3, 2.3) : rnd(0.35, 1.15),
+          c: COLORS[(Math.random() * COLORS.length) | 0],
+          a: bright ? rnd(0.75, 1) : rnd(0.30, 0.8),
+          tw: rnd(0, Math.PI * 2), tws: rnd(0.4, 1.7),
+          d: r / Rmax
+        });
+      }
+    }
+
+    /* soft nebula fog along the galactic plane, pre-rendered at half res */
+    function buildNebula() {
+      NEB = document.createElement('canvas');
+      NEB.width = Math.max(2, Math.round(W / 2)); NEB.height = Math.max(2, Math.round(H / 2));
+      var nx = NEB.getContext('2d');
+      nx.translate(NEB.width / 2, NEB.height * 0.44);
+      nx.rotate(TILT);
+      var blobs = [
+        [0.00,  0.00, 0.62, '#16294a', 0.50],
+        [-0.34, -0.02, 0.48, '#0f2140', 0.42],
+        [0.34,  0.03, 0.48, '#132a52', 0.42],
+        [-0.15, 0.015, 0.30, '#3a2b4f', 0.30],
+        [0.16, -0.015, 0.36, '#173a5e', 0.34],
+        [0.01,  0.005, 0.17, '#7a3a1e', 0.16]  /* faint warm core — the brand ember */
+      ];
+      nx.globalCompositeOperation = 'lighter';
+      blobs.forEach(function (b) {
+        var bx = b[0] * NEB.width, by = b[1] * NEB.height, br = b[2] * NEB.width;
+        nx.save();
+        nx.translate(bx, by);
+        nx.scale(1, 0.34);
+        var g = nx.createRadialGradient(0, 0, 0, 0, 0, br);
+        g.addColorStop(0, b[3]);
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        nx.globalAlpha = b[4];
+        nx.fillStyle = g;
+        nx.beginPath(); nx.arc(0, 0, br, 0, 6.2832); nx.fill();
+        nx.restore();
+      });
+    }
+
+    function project(st, rot) {
+      var th = st.th + rot;
+      var x = Math.cos(th) * st.r, y = Math.sin(th) * st.r * SQUASH;
+      return {
+        x: CX + x * Math.cos(TILT) - y * Math.sin(TILT),
+        y: CY + x * Math.sin(TILT) + y * Math.cos(TILT)
+      };
+    }
+
+    /* comet path: sweeps in from upper right, arcs across, lands center */
+    function cometPos(p) {
+      var P0 = { x: W + 90, y: H * 0.08 }, P1 = { x: W * 0.55, y: -H * 0.04 },
+          P2 = { x: W * 0.12, y: H * 0.34 }, P3 = land;
+      var u = 1 - p;
+      return {
+        x: u*u*u*P0.x + 3*u*u*p*P1.x + 3*u*p*p*P2.x + p*p*p*P3.x,
+        y: u*u*u*P0.y + 3*u*u*p*P1.y + 3*u*p*p*P2.y + p*p*p*P3.y
+      };
+    }
+
+    function drawFrame(t) {
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+
+      var unfold = smooth((t - 0.2) / 2.3);            /* the milky way resolves 0.2s → 2.5s */
+      var rot = 0.06 * unfold * unfold + t * 0.004;    /* ambient rotation, forever */
+
+      if (NEB) {
+        ctx.globalAlpha = 0.9 * easeOut(unfold);
+        ctx.drawImage(NEB, 0, 0, W, H);
+        ctx.globalAlpha = 1;
+      }
+
+      ctx.globalCompositeOperation = 'lighter';
+      for (var i = 0; i < stars.length; i++) {
+        var st = stars[i];
+        var rv = smooth((unfold - st.d * 0.82) / 0.18);  /* unfolds inside-out */
+        if (rv <= 0) continue;
+        var p = project(st, rot);
+        if (p.x < -24 || p.x > W + 24 || p.y < -24 || p.y > H + 24) continue;
+        var twk = 0.75 + 0.25 * Math.sin(st.tw + t * st.tws);
+        ctx.globalAlpha = st.a * rv * twk;
+        ctx.fillStyle = st.c;
+        ctx.beginPath(); ctx.arc(p.x, p.y, st.s, 0, 6.2832); ctx.fill();
+        if (st.s > 1.3) {  /* diffraction spikes on the bright ones */
+          ctx.globalAlpha *= 0.32;
+          ctx.fillRect(p.x - st.s * 4.5, p.y - 0.4, st.s * 9, 0.8);
+          ctx.fillRect(p.x - 0.4, p.y - st.s * 4.5, 0.8, st.s * 9);
+        }
+      }
+
+      /* the comet — launches at 2.55s, lands at 3.95s */
+      var cp = (t - 2.55) / 1.4;
+      if (cp >= 0 && cp <= 1) {
+        var pos = cometPos(smooth(cp));
+        trail.push({ x: pos.x, y: pos.y, t: t });
+        var head = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, 26);
+        head.addColorStop(0, 'rgba(255,255,255,0.95)');
+        head.addColorStop(0.25, 'rgba(207,228,255,0.55)');
+        head.addColorStop(1, 'rgba(207,228,255,0)');
+        ctx.globalAlpha = 1; ctx.fillStyle = head;
+        ctx.beginPath(); ctx.arc(pos.x, pos.y, 26, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath(); ctx.arc(pos.x, pos.y, 2.6, 0, 6.2832); ctx.fill();
+      }
+      /* the star trail — tapered, fading */
+      for (var j = trail.length - 1; j >= 0; j--) {
+        var tp = trail[j], age = t - tp.t;
+        if (age > 0.95) { trail.splice(j, 1); continue; }
+        var f = 1 - age / 0.95;
+        ctx.globalAlpha = 0.5 * f * f;
+        ctx.fillStyle = '#cfe4ff';
+        ctx.beginPath(); ctx.arc(tp.x, tp.y, 5.5 * f, 0, 6.2832); ctx.fill();
+      }
+
+      /* the landing flare — the agent is born from it */
+      var fp = (t - 3.95) / 0.95;
+      if (fp >= 0 && fp < 1) {
+        var fa = 1 - smooth(fp);
+        var frad = 24 + easeOut(fp) * Math.min(W, H) * 0.34;
+        var fg = ctx.createRadialGradient(land.x, land.y, 0, land.x, land.y, frad);
+        fg.addColorStop(0, 'rgba(255,255,255,' + (0.9 * fa) + ')');
+        fg.addColorStop(0.2, 'rgba(214,232,255,' + (0.5 * fa) + ')');
+        fg.addColorStop(0.55, 'rgba(241,95,34,' + (0.10 * fa) + ')');
+        fg.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.globalAlpha = 1; ctx.fillStyle = fg;
+        ctx.beginPath(); ctx.arc(land.x, land.y, frad, 0, 6.2832); ctx.fill();
+        /* diffraction cross */
+        ctx.globalAlpha = 0.55 * fa;
+        ctx.fillStyle = '#e8f2ff';
+        var L = frad * 1.5;
+        ctx.fillRect(land.x - L, land.y - 0.7, L * 2, 1.4);
+        ctx.fillRect(land.x - 0.7, land.y - L, 1.4, L * 2);
+        if (!revealed && fp > 0.10) goLive();
+      }
+      if (t > 4.2) goLive();
+
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 1;
+    }
+
+    function frame(now) {
+      if (!running) { rafId = null; return; }
+      if (t0 === null) t0 = now;
+      drawFrame((now - t0) / 1000);
+      rafId = requestAnimationFrame(frame);
+    }
+
+    resize(); buildStars();
+
+    var rsT;
+    window.addEventListener('resize', function () {
+      clearTimeout(rsT); rsT = setTimeout(function () { resize(); buildStars(); }, 150);
+    });
+
+    if (reduced) {
+      /* one still frame of the fully unfolded universe; the agent is simply there */
+      drawFrame(10);
+      goLive();
+      return;
+    }
+
+    /* render only while the hero is on screen */
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          if (!rafId) { running = true; rafId = requestAnimationFrame(frame); }
+        } else { running = false; }
+      });
+    }, { threshold: 0.02 }).observe(hero);
+
+    rafId = requestAnimationFrame(frame);
+    setTimeout(goLive, 6000); /* absolute failsafe */
+  })();
+
+  /* act reveals */
+  var acts = document.querySelectorAll('.act');
+  var actObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('on'); actObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.22, rootMargin: '0px 0px -40px 0px' });
+  acts.forEach(function (a) { actObs.observe(a); });
+
+  /* rail: active + done states */
+  var railLinks = {};
+  document.querySelectorAll('.rail a').forEach(function (a) { railLinks[a.getAttribute('data-act')] = a; });
+  var sections = document.querySelectorAll('#reveal, .act');
+  var seen = new Set();
+  var railObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var id = e.target.id;
+      seen.add(id);
+      Object.keys(railLinks).forEach(function (k) {
+        railLinks[k].classList.toggle('on', k === id);
+        if (k !== id && seen.has(k)) railLinks[k].classList.add('done');
+      });
+    });
+  }, { threshold: 0.35 });
+  sections.forEach(function (s) { railObs.observe(s); });
+
+  /* Act IV: the gauntlet — nodes light in sequence, gate blocks, console narrates */
+  var gate = document.getElementById('act-check');
+  if (gate) {
+    var played = false;
+    var gateObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting || played) return;
+        played = true;
+        runGate();
+        gateObs.unobserve(e.target);
+      });
+    }, { threshold: 0.45 });
+    gateObs.observe(gate);
+  }
+  function runGate() {
+    var nodes = document.querySelectorAll('#gate-strip .g-node');
+    var lines = document.querySelectorAll('#gate-console .gc-line');
+    if (reduced) {
+      nodes.forEach(function (n, i) { n.classList.add(i === 5 ? 'block' : 'pass'); });
+      lines.forEach(function (l) { l.classList.add('show'); });
+      return;
+    }
+    var t = 300;
+    lines[0] && setTimeout(function () { lines[0].classList.add('show'); }, t);
+    nodes.forEach(function (n, i) {
+      t += 420;
+      setTimeout(function () {
+        if (i === 5) {
+          n.classList.add('block');
+          lines[1] && lines[1].classList.add('show');
+          setTimeout(function () { lines[2] && lines[2].classList.add('show'); }, 350);
+          setTimeout(function () { lines[3] && lines[3].classList.add('show'); }, 900);
+        } else {
+          n.classList.add('pass');
+        }
+      }, t);
+    });
+    setTimeout(function () {
+      lines[4] && lines[4].classList.add('show');
+      var sealNode = nodes[6];
+      sealNode && sealNode.classList.add('pass');
+    }, t + 1500);
+  }
+
+  /* footer seal: playful hash flicker on arrival */
+  var sealEl = document.getElementById('seal-hash');
+  if (sealEl && !reduced) {
+    var sealObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var chars = '0123456789abcdef';
+        var frames = 14, f = 0;
+        var iv = setInterval(function () {
+          f++;
+          var h = '';
+          for (var i = 0; i < 4; i++) h += chars[Math.floor(Math.random() * 16)];
+          var h2 = '';
+          for (var j = 0; j < 4; j++) h2 += chars[Math.floor(Math.random() * 16)];
+          sealEl.textContent = 'ed25519 · ' + h + '…' + h2 + ' · verified offline';
+          if (f >= frames) { clearInterval(iv); sealEl.textContent = 'ed25519 · a7f3…c91e · verified offline'; }
+        }, 70);
+        sealObs.unobserve(e.target);
+      });
+    }, { threshold: 0.6 });
+    sealObs.observe(sealEl);
+  }
+})();
+
+/* ============================================================
+   G1 · THE LIVING FOUNDATION — Lenis smooth scroll + GSAP:
+   breathing membrane, drifting constellation, hero parallax.
+   Guarded: no libs / reduced motion → the page works as before.
+   ============================================================ */
+(function () {
+  "use strict";
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced || !window.gsap) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* --- Lenis smooth scroll, wired into ScrollTrigger --- */
+  if (window.Lenis) {
+    document.documentElement.style.scrollBehavior = 'auto'; /* Lenis owns scrolling now */
+    var lenis = new Lenis({ lerp: 0.1 });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+    /* anchor links travel through Lenis */
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var el = document.querySelector(a.getAttribute('href'));
+        if (el) { e.preventDefault(); lenis.scrollTo(el, { offset: -16, duration: 1.1 }); }
+      });
+    });
+  }
+
+  /* --- the membrane breathes (starts after the comet lands + assembly completes) --- */
+  gsap.to('.membr-line', {
+    scale: 1.012, svgOrigin: '500 360',
+    duration: 2.7, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 7
+  });
+  gsap.to('.s-membr text', {
+    opacity: 0.55, duration: 2.7, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 7
+  });
+
+  /* --- hero exit: the stage recedes as the story begins --- */
+  gsap.to('.stagebox', {
+    yPercent: 7, scale: 0.965, opacity: 0.75, ease: 'none',
+    scrollTrigger: { trigger: '#reveal', start: 'top top', end: 'bottom 25%', scrub: true }
+  });
+  gsap.to('.reveal h1, .reveal .eyebrow', {
+    yPercent: -40, opacity: 0, ease: 'none',
+    scrollTrigger: { trigger: '#reveal', start: 'top top', end: '45% top', scrub: true }
+  });
+  gsap.to('.reveal .epigraph', {
+    opacity: 0, ease: 'none',
+    scrollTrigger: { trigger: '#reveal', start: '5% top', end: '35% top', scrub: true }
+  });
+})();
+</script>
+</body>
+</html>
