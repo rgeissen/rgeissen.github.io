@@ -1,8 +1,8 @@
 # Robots.txt for Uderia
-# https://uderia.com
+# https://rgeissen.github.io/
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://uderia.com/sitemap.xml
+Sitemap: https://rgeissen.github.io/sitemap.xml
